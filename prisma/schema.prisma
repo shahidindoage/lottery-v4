@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model LotterySubmission {
+  id               Int      @id @default(autoincrement())
+  uniqueId         String   @unique
+  name             String
+  phone            String?
+  accepted_terms   Boolean
+  accepted_privacy Boolean
+  winner           Int      @default(0)
+  prize            String?
+  createdAt        DateTime @default(now())
+}
