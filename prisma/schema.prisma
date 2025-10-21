@@ -18,3 +18,8 @@ model LotterySubmission {
   prize            String?
   createdAt        DateTime @default(now())
 }
+
+model SiteSetting {
+  id        Int      @id @default(1)
+  allowRegistration Boolean @default(true)
+}

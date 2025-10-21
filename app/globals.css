@@ -293,10 +293,19 @@
   .admin th, .admin td {
     padding: 10px;
   }
+  .logout-wrapper{
+  flex-direction: column;
+  align-items: center;
+  
+}
 }
 .logout-wrapper{
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
+  
+}
+.game-logout-wrapper{
+ display: flex;
   gap: 10px;
 }
   .container {
@@ -544,3 +553,58 @@
           margin-top:100px;
           }
         }
+
+
+        .phone-input {
+  position: relative;
+}
+
+.phone-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.phone-wrapper input {
+  width: 100%;
+  padding-left: 60px !important; /* space for dropdown */
+}
+
+.country-select {
+  position: absolute;
+  left: 10px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 14px;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  padding-right: 5px;
+  width: 58px;
+}
+
+.country-select option {
+  background: #111;
+  color: #fff;
+}
+
+/* Make it blend well inside the input */
+.phone-wrapper select::-ms-expand {
+  display: none;
+}
+
+.phone-wrapper input:focus + label,
+.phone-wrapper input:not(:placeholder-shown) + label {
+  top: -10px;
+  font-size: 12px;
+  color: #f5c400;
+}
+.phone-label{
+  left: 60px !important;
+}
+
+.phone-wrapper input:focus + .phone-label,
+.phone-wrapper input:not(:placeholder-shown) + .phone-label {
+  left: 10px !important;
+}
