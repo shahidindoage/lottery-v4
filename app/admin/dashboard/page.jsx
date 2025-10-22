@@ -29,11 +29,11 @@ export default async function AdminDashboard({ searchParams }) {
   if (!adminAuth) redirect('/admin/login');
 
   // ✅ Fetch registration setting
-  const siteSetting = await prisma.siteSetting.findFirst({
-    where: { id: 1 },
-  });
+  // const siteSetting = await prisma.siteSetting.findFirst({
+  //   where: { id: 1 },
+  // });
 
-  const allowRegistration = siteSetting?.allowRegistration ?? true;
+  // const allowRegistration = siteSetting?.allowRegistration ?? true;
 
   // ✅ Fetch all submissions
   const allSubmissions = await prisma.lotterySubmission.findMany({
