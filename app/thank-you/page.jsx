@@ -19,7 +19,7 @@ console.log(customerId)
     <div
       style={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #0f2027, #203a43, #2c5364)',
+        background: '#0f0f0f',
         color: '#fff',
         display: 'flex',
         flexDirection: 'column',
@@ -35,7 +35,7 @@ console.log(customerId)
         <button
           onClick={() => setLang('en')}
           style={{
-            background: lang === 'en' ? '#f5c400' : 'transparent',
+            background: lang === 'en' ? '#d6af66' : 'transparent',
             color: lang === 'en' ? '#000' : '#fff',
             marginRight: 8,
           }}
@@ -45,7 +45,7 @@ console.log(customerId)
         <button
           onClick={() => setLang('ru')}
           style={{
-            background: lang === 'ru' ? '#f5c400' : 'transparent',
+            background: lang === 'ru' ? '#d6af66' : 'transparent',
             color: lang === 'ru' ? '#000' : '#fff',
           }}
         >
@@ -53,15 +53,18 @@ console.log(customerId)
         </button>
       </div>
 
-      <h1 style={{ fontSize: '2.2rem', color: '#ffd700', marginBottom: 10 }}>
+  <div style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+ <img src='logo.PNG' width={230} height={230}/>
+        </div>
+      <h1 style={{ fontSize: '2.2rem', color: '#d6af66', marginBottom: 10 }} className='thank-title'>
         🎉 {t.thankYou}
       </h1>
-      <p style={{ fontSize: '1rem', color: '#ccc', maxWidth: 500 }}>
+      <p style={{ fontSize: '1rem', color: '#ccc', maxWidth: 500 }} className='font2'>
         {t.success}
       </p>
 
       {customerId ? (
-        <p style={{ marginTop: 20, fontSize: '1.2rem', color: '#f5c400' }}>
+        <p style={{ marginTop: 20, fontSize: '1.2rem', color: '#d6af66' }} className='font2'>
           {t.customerId}: <strong>{customerId}</strong>
         </p>
       ) : (

@@ -61,7 +61,7 @@ const validatePhone = (num) => {
         <button
           onClick={() => setLang('en')}
           style={{
-            background: lang === 'en' ? '#f5c400' : 'transparent',
+            background: lang === 'en' ? '#d6af66' : 'transparent',
             color: lang === 'en' ? '#000' : '#fff',
           }}
         >
@@ -70,7 +70,7 @@ const validatePhone = (num) => {
         <button
           onClick={() => setLang('ru')}
           style={{
-            background: lang === 'ru' ? '#f5c400' : 'transparent',
+            background: lang === 'ru' ? '#d6af66' : 'transparent',
             color: lang === 'ru' ? '#000' : '#fff',
           }}
         >
@@ -79,19 +79,26 @@ const validatePhone = (num) => {
       </div>
 
       {/* 🎟️ Form Card */}
+      <div style={{display:'flex', alignItems:'center',justifyContent:'center',flexDirection:'column',maxWidth:600,width:'100%',marginTop:'-100px'}}>
+  <div style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+ <img src='logo.PNG' width={230} height={230}/>
+        </div>
       <div className="card">
-        <h1>🎉 {t.title}</h1>
+       
+       
+        <h1 className='title'>🎉 {t.title}</h1>
         <form onSubmit={handleSubmit}>
           {/* Name */}
-          <div className="form-group">
+          <div className="form-group font2" >
             <input
               type="text"
               placeholder=" "
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
               required
+              className='font2'
             />
-            <label>{t.fullName}</label>
+            <label className='font2'>{t.fullName}</label>
           </div>
 
           {/* WhatsApp Number with Country Code */}
@@ -101,7 +108,7 @@ const validatePhone = (num) => {
     <select
       value={form.countryCode || '+91'}
       onChange={e => setForm({ ...form, countryCode: e.target.value })}
-      className="country-select"
+      className="country-select font2"
     >
      <option value="+93">🇦🇫 +93 &nbsp;&nbsp;&nbsp;Afghanistan</option>
   <option value="+355">🇦🇱 +355 &nbsp;Albania</option>
@@ -216,15 +223,16 @@ const validatePhone = (num) => {
       value={form.phone}
       onChange={e => setForm({ ...form, phone: e.target.value })}
       required
+      className='font2'
     />
-    <label className='phone-label'>{t.phone}</label>
+    <label className='phone-label font2'>{t.phone}</label>
   </div>
 </div>
 
 
           {/* Checkboxes */}
           <div className="checkboxes">
-            <label>
+            <label  className='font2'>
               <input
                 type="checkbox"
                 checked={form.terms}
@@ -234,12 +242,13 @@ const validatePhone = (num) => {
               />{' '}
               {t.acceptTerms}{' '}
               <a
-                href="/"
+                href="https://www.doremi.art/terms-and-conditions"
                 rel="noopener noreferrer"
                 style={{
                   color: '#ddd',
                   textDecoration: 'none',
                 }}
+                className='font2'
                 onMouseEnter={(e) => (e.currentTarget.style.color = '#fff')}
                 onMouseLeave={(e) => (e.currentTarget.style.color = '#ddd')}
               >
@@ -247,7 +256,7 @@ const validatePhone = (num) => {
               </a>
             </label>
 
-            <label>
+            <label  className='font2'>
               <input
                 type="checkbox"
                 checked={form.privacy}
@@ -257,12 +266,13 @@ const validatePhone = (num) => {
               />{' '}
               {t.acceptPrivacy}{' '}
               <a
-                href="/"
+                href="https://www.doremi.art/privacy-policy"
                 rel="noopener noreferrer"
                 style={{
                   color: '#ddd',
                   textDecoration: 'none',
                 }}
+                className='font2'
                 onMouseEnter={(e) => (e.currentTarget.style.color = '#fff')}
                 onMouseLeave={(e) => (e.currentTarget.style.color = '#ddd')}
               >
@@ -275,11 +285,16 @@ const validatePhone = (num) => {
           {error && <div className="error">{error}</div>}
 
           {/* Submit Button */}
-          <button className="btn" type="submit" disabled={loading}>
+          <div style={{display:'flex',alignItems:'center',justifyContent:'end'}} className='btn-wrapper'>
+             <button className="btn" type="submit" disabled={loading}>
             {loading ? t.submitting : t.enterDraw}
           </button>
+          </div>
+         
         </form>
       </div>
+      </div>
+     
 
       {/* Inline Styles for Phone Field */}
       <style jsx>{`

@@ -1,4 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap'); */
+
+
+ @font-face {
+  font-family: 'PP-NEUE';
+  src: url('../public/fonts/PPNeueWorld-CondensedRegular.woff2') format('woff2'),
+       url('../public/fonts/PPNeueWorld-CondensedRegular.woff') format('woff');
+  /* font-weight: normal;
+  font-style: normal; */
+}
+ @font-face {
+  font-family: 'playfair-display-v2';
+  src: url('../public/fonts/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2') format('woff2'),
+  /* font-weight: normal;
+  font-style: normal; */
+}
 
         * { box-sizing: border-box; margin:0; padding:0; }
 
@@ -9,12 +24,12 @@
           justify-content: center;
           align-items: center;
           padding: 40px 20px;
-          background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+          background: #0f0f0f;
           color: #fff;
         }
 
         .card {
-          background: rgba(255, 255, 255, 0.1);
+          /* background: rgba(255, 255, 255, 0.1); */
           backdrop-filter: blur(14px);
           -webkit-backdrop-filter: blur(14px);
           padding: 32px;
@@ -22,7 +37,7 @@
           width: 100%;
           max-width: 600px;
           box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-          border: 1px solid rgba(255,255,255,0.2);
+          /* border: 1px solid rgba(255,255,255,0.2); */
           animation: fadeInUp 0.8s ease;
         }
 
@@ -40,24 +55,29 @@
         .form-group {
           position: relative;
           margin-bottom: 24px;
+          font-family: playfair-display-v2;
         }
 
         .form-group input,
         .form-group textarea {
           width: 100%;
           padding: 14px 16px;
-          border: 1px solid rgba(255,255,255,0.3);
-          border-radius: 10px;
-          background: rgba(255,255,255,0.05);
+          border: 1px solid transparent;
+          border-bottom: 1px solid #d6af66;
+          /* border-radius: 10px; */
+          background: #0f0f0f;
           color: #fff;
           font-size:1rem;
           transition: border-color 0.3s ease;
+              font-family: playfair-display-v2;
         }
 
         .form-group input:focus,
         .form-group textarea:focus {
-          border-color: #ffd700;
+          /* border-color: #ffd700; */
+          border-bottom: 1px solid #857353;
           outline: none;
+          font-family: playfair-display-v2;
         }
 
         .form-group label {
@@ -70,6 +90,7 @@
           color:#ccc;
           transition:0.3s;
           pointer-events:none;
+          font-family: playfair-display-v2;
         }
 
         .form-group input:focus + label,
@@ -79,7 +100,8 @@
           top:-10px;
           left:12px;
           font-size:0.75rem;
-          color:#ffd700;
+          color:#d6af66;
+          font-family: playfair-display-v2;
         }
 
         .row { display:flex; gap:16px; }
@@ -96,18 +118,24 @@
         .btn {
           width:100%;
           padding:14px;
-          font-size:1rem;
+          font-size:20px;
           font-weight:bold;
           border:none;
-          border-radius:10px;
-          background: linear-gradient(135deg,#ffd700,#ffb700);
+          /* border-radius:10px; */
+          margin-top: 14px;
+          background: #d6af66;
           color:#000;
           cursor:pointer;
+           font-family: PP-NEUE;
           transition: background 0.3s ease;
+          border-radius: 12px;
+          width: 250px;
         }
 
         .btn:hover {
-          background: linear-gradient(135deg,#ffb700,#ffd700);
+          background: transparent;
+          border: 1px solid #ffffff;
+          color: white;
         }
 
         .error {
@@ -391,6 +419,9 @@
           .page-title {
             font-size: 1.5rem;
           }
+          .btn-wrapper{
+  justify-content: center !important;
+}
         }
 
          .flip-wrapper {
@@ -552,6 +583,9 @@
           .flip-title{
           margin-top:100px;
           }
+          .font2{
+            font-size: 14px !important;
+          }
         }
 
 
@@ -575,12 +609,12 @@
   left: 10px;
   border: none;
   background: transparent;
-  color: #fff;
+  color: #ccc;
   font-size: 14px;
   appearance: none;
   outline: none;
   cursor: pointer;
-  padding-right: 5px;
+  padding-right: 16px;
   width: 58px;
 }
 
@@ -598,7 +632,7 @@
 .phone-wrapper input:not(:placeholder-shown) + label {
   top: -10px;
   font-size: 12px;
-  color: #f5c400;
+   color:#d6af66;
 }
 .phone-label{
   left: 60px !important;
@@ -607,4 +641,24 @@
 .phone-wrapper input:focus + .phone-label,
 .phone-wrapper input:not(:placeholder-shown) + .phone-label {
   left: 10px !important;
+}
+
+.title{
+  font-family: PP-NEUE;
+      font-size: 28px !important;
+    line-height: 40px;
+    font-weight: 400;
+    /* color: #f8f7f4 !important; */
+}
+.thank-title{
+font-family: PP-NEUE;
+      font-size: 2rem !important;
+    line-height: 40px;
+    font-weight: 400;
+}
+.font2{
+  font-family: playfair-display-v2;
+  /* font-weight: 600; */
+  font-size: 16px ;
+  line-height: 20px !important;
 }
