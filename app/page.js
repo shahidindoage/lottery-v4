@@ -98,7 +98,7 @@ const validatePhone = (num) => {
               required
               className='font2'
             />
-            <label className='font2'>{t.fullName}</label>
+            <label className='font2 name-label'>{t.fullName}</label>
           </div>
 
           {/* WhatsApp Number with Country Code */}
@@ -231,56 +231,71 @@ const validatePhone = (num) => {
 
 
           {/* Checkboxes */}
-          <div className="checkboxes">
-            <label  className='font2'>
-              <input
-                type="checkbox"
-                checked={form.terms}
-                onChange={(e) =>
-                  setForm({ ...form, terms: e.target.checked })
-                }
-              />{' '}
-              {t.acceptTerms}{' '}
-              <a
-                href="https://www.doremi.art/terms-and-conditions"
-                rel="noopener noreferrer"
-                style={{
-                  color: '#ddd',
-                  textDecoration: 'none',
-                }}
-                className='font2'
-                onMouseEnter={(e) => (e.currentTarget.style.color = '#fff')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = '#ddd')}
-              >
-                {t.termsLink} 🔗
-              </a>
-            </label>
+    <div className="checkboxes">
+  <label className="font2">
+    <input
+      type="checkbox"
+      checked={form.terms}
+      onChange={(e) => setForm({ ...form, terms: e.target.checked })}
+    />{' '}
+    <span className="text-desktop">
+      I have read and agree to the{' '}
+      <a
+        href="https://www.doremi.art/terms-and-conditions"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="link-text"
+      >
+        Terms & Conditions
+      </a>
+      .
+    </span>
+    <span className="text-mobile">
+      I agree to the{' '}
+      <a
+        href="https://www.doremi.art/terms-and-conditions"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="link-text"
+      >
+        Terms & Conditions
+      </a>
+      .
+    </span>
+  </label>
 
-            <label  className='font2'>
-              <input
-                type="checkbox"
-                checked={form.privacy}
-                onChange={(e) =>
-                  setForm({ ...form, privacy: e.target.checked })
-                }
-              />{' '}
-              {t.acceptPrivacy}{' '}
-              <a
-                href="https://www.doremi.art/privacy-policy"
-                rel="noopener noreferrer"
-                style={{
-                  color: '#ddd',
-                  textDecoration: 'none',
-                }}
-                className='font2'
-                onMouseEnter={(e) => (e.currentTarget.style.color = '#fff')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = '#ddd')}
-              >
-                {t.privacyLink} 🔗
-              </a>
-            </label>
-          </div>
-
+  <label className="font2">
+    <input
+      type="checkbox"
+      checked={form.privacy}
+      onChange={(e) => setForm({ ...form, privacy: e.target.checked })}
+    />{' '}
+    <span className="text-desktop">
+      I understand and accept the{' '}
+      <a
+        href="https://www.doremi.art/privacy-policy"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="link-text"
+      >
+        Privacy Policy
+      </a>
+      .
+    </span>
+    <span className="text-mobile">
+       I accept the{' '}
+      <a
+        href="https://www.doremi.art/privacy-policy"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="link-text"
+      >
+        Privacy Policy
+      </a>
+      .
+    </span>
+  </label>
+</div>
           {/* Error */}
           {error && <div className="error">{error}</div>}
 
