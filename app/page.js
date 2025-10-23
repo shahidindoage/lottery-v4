@@ -251,7 +251,7 @@ const validatePhone = (num) => {
       .
     </span>
     <span className="text-mobile">
-      I agree to the{' '}
+      I accept the{' '}
       <a
         href="https://www.doremi.art/terms-and-conditions"
         target="_blank"
