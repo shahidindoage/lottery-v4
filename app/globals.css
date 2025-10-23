@@ -39,8 +39,8 @@
           box-shadow: 0 20px 40px rgba(0,0,0,0.5);
           /* border: 1px solid rgba(255,255,255,0.2); */
           animation: fadeInUp 0.8s ease;
-          margin-top: -169px;
-          padding-top: 100px;
+          margin-top: -71px;
+          /* padding-top: 100px; */
         }
 
         @keyframes fadeInUp {
@@ -580,7 +580,10 @@
           transition: background-color 0.3s ease;
         }
         .popup-content1 button:hover { background-color: #c14d2b; }
-
+.logo{
+           image-rendering: -webkit-optimize-contrast;
+  -webkit-font-smoothing: antialiased;
+          }
         @media (max-width: 768px) {
           .card-container1 { grid-template-columns: 1fr 1fr !important; width: 80%; }
           .flip-title{
@@ -592,15 +595,16 @@
           .logo{
             width: 130px !important;
             height: 130px !important;
-            margin-bottom: -106px !important;
+            margin-bottom: -32px !important;
           }
           .card{
             /* margin-top: -33px !important; */
-            padding-top: 80px !important;
+            /* padding-top: 80px !important; */
             margin-top: 0px !important;
           }
           .btn{
             text-transform: uppercase;
+            width: 100% !important;
           }
           .country-select {
             width: 65px !important;

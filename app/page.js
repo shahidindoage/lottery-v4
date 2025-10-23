@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-
+import Image from 'next/image';
 
 
 export default function HomePage() {
@@ -10,7 +10,7 @@ export default function HomePage() {
     phone: '',
     countryCode: '+971',
     terms: false,
-    privacy: false,
+    privacy: true,
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -81,7 +81,7 @@ const validatePhone = (num) => {
       {/* 🎟️ Form Card */}
       <div style={{display:'flex', alignItems:'center',justifyContent:'center',flexDirection:'column',maxWidth:600,width:'100%'}}>
   <div style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
- <img src='logo.PNG' width={230} height={230} className='logo'/>
+ <Image src="/logo.PNG" alt="Logo" width={230} height={230} className="logo" priority />
         </div>
       <div className="card">
        
@@ -264,7 +264,7 @@ const validatePhone = (num) => {
     </span>
   </label>
 
-  <label className="font2">
+  {/* <label className="font2">
     <input
       type="checkbox"
       checked={form.privacy}
@@ -294,7 +294,7 @@ const validatePhone = (num) => {
       </a>
       .
     </span>
-  </label>
+  </label> */}
 </div>
           {/* Error */}
           {error && <div className="error">{error}</div>}
