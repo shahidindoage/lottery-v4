@@ -22,7 +22,7 @@ export default function HomePage() {
  // ✅ WhatsApp validation helper (10–11 digits only)
 const validatePhone = (num) => {
   const cleaned = num.replace(/\D/g, '');
-  return cleaned.length >= 10 && cleaned.length <= 11;
+  return cleaned.length >= 9 && cleaned.length <= 11;
 };
 
 
