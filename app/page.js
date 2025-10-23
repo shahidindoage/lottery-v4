@@ -8,7 +8,7 @@ export default function HomePage() {
   const [form, setForm] = useState({
     name: '',
     phone: '',
-    countryCode: '+91',
+    countryCode: '+971',
     terms: false,
     privacy: false,
   });
@@ -79,9 +79,9 @@ const validatePhone = (num) => {
       </div>
 
       {/* 🎟️ Form Card */}
-      <div style={{display:'flex', alignItems:'center',justifyContent:'center',flexDirection:'column',maxWidth:600,width:'100%',marginTop:'-100px'}}>
+      <div style={{display:'flex', alignItems:'center',justifyContent:'center',flexDirection:'column',maxWidth:600,width:'100%'}}>
   <div style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
- <img src='logo.PNG' width={230} height={230}/>
+ <img src='logo.PNG' width={230} height={230} className='logo'/>
         </div>
       <div className="card">
        
@@ -106,7 +106,7 @@ const validatePhone = (num) => {
 <div className="form-group phone-input">
   <div className="phone-wrapper">
     <select
-      value={form.countryCode || '+91'}
+      value={form.countryCode || '+971'}
       onChange={e => setForm({ ...form, countryCode: e.target.value })}
       className="country-select font2"
     >

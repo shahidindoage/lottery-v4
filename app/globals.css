@@ -39,7 +39,8 @@
           box-shadow: 0 20px 40px rgba(0,0,0,0.5);
           /* border: 1px solid rgba(255,255,255,0.2); */
           animation: fadeInUp 0.8s ease;
-          margin-top: -50px;
+          margin-top: -169px;
+          padding-top: 100px;
         }
 
         @keyframes fadeInUp {
@@ -129,7 +130,7 @@
           cursor:pointer;
            font-family: PP-NEUE;
           transition: background 0.3s ease;
-          border-radius: 12px;
+          /* border-radius: 12px; */
           width: 250px;
           text-transform: uppercase;
         }
@@ -588,25 +589,35 @@
           .font2{
             font-size: 14px !important;
           }
+          .logo{
+            width: 130px !important;
+            height: 130px !important;
+            margin-bottom: -106px !important;
+          }
           .card{
-            margin-top: -62px !important;
+            /* margin-top: -33px !important; */
+            padding-top: 80px !important;
+            margin-top: 0px !important;
           }
           .btn{
             text-transform: uppercase;
           }
-          .checkboxes label {
-            text-align: center;
+          .country-select {
+            width: 65px !important;
           }
-          .phone-label {
+          /* .checkboxes label {
+            text-align: center;
+          } */
+          /* .phone-label {
     left: 28% !important;
-}
-.name-label {
+} */
+/* .name-label {
   left: 36% !important;
-}
-.phone-wrapper input:focus + label,
+} */
+/* .phone-wrapper input:focus + label,
 .phone-wrapper input:not(:placeholder-shown) + label {
   left: 28% !important;
-}
+} */
         }
 
 .name-label {
@@ -638,7 +649,7 @@
   outline: none;
   cursor: pointer;
   padding-right: 16px;
-  width: 58px;
+  width: 68px;
 }
 
 .country-select option {
