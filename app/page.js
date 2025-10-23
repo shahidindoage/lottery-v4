@@ -339,7 +339,7 @@ const translations = {
     submitting: 'Submitting...',
   },
   ru: {
-    title: 'Присоединяйтесь к розыгрышу лотереи!',
+    title: 'Присоединяйтесь к розыгрышу призов!',
     fullName: 'ФИО',
     phone: 'Номер WhatsApp',
     acceptTerms: 'Я принимаю Условия использования',
