@@ -39,6 +39,7 @@
           box-shadow: 0 20px 40px rgba(0,0,0,0.5);
           /* border: 1px solid rgba(255,255,255,0.2); */
           animation: fadeInUp 0.8s ease;
+          margin-top: -50px;
         }
 
         @keyframes fadeInUp {
@@ -130,6 +131,7 @@
           transition: background 0.3s ease;
           border-radius: 12px;
           width: 250px;
+          text-transform: uppercase;
         }
 
         .btn:hover {
