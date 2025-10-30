@@ -83,7 +83,7 @@ const t = {
   setAssignedWinners(prev => ({ ...prev, [index]: winner }));
 
   // Show popup
-  setPopupText(`🎉 ${t.youWon}!\nPrize: ${card.prize}\nName: ${winner.name}\nCustomer ID: ${winner.uniqueId}`);
+  setPopupText(`🎉 ${t.youWon}!\nName: ${winner.name}\nCustomer ID: ${winner.uniqueId}`);
   setShowPopup(true);
 };
 
@@ -140,9 +140,10 @@ const t = {
             <div className="back">
               {card.flipped && card.winner ? (
                 <>
-                  {card.prize} <br />
+                  Winner <br />
+                  {/* {card.prize} <br /> */}
                   <span style={{color:'green'}}>
-                    Winner - {card.winner.uniqueId}
+                    ID - {card.winner.uniqueId}
                   </span>
                 </>
               ) : ''}

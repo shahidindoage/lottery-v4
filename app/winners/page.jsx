@@ -65,7 +65,7 @@ export default function WinnersPage() {
         <div style={cardsContainerStyle}>
           {winners.map((w, idx) => (
             <div key={idx} style={cardStyle}>
-              <div style={prizeBadgeStyle}>{t.prize}: {w.prize}</div>
+              {/* <div style={prizeBadgeStyle}>{t.prize}: {w.prize}</div> */}
               <h2 style={nameStyle}>{w.name}</h2>
               <p style={idStyle}>{t.customerId}: {w.uniqueId}</p>
             </div>
