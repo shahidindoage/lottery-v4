@@ -39,12 +39,12 @@ export async function POST(req) {
     });
 
     const res = NextResponse.json({ success: true, uniqueId: newEntry.uniqueId });
-    res.cookies.set('lottery_user', newEntry.uniqueId, {
-      path: '/',
-      httpOnly: false,
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 20,
-    });
+    // res.cookies.set('lottery_user', newEntry.uniqueId, {
+    //   path: '/',
+    //   httpOnly: false,
+    //   secure: process.env.NODE_ENV === 'production',
+    //   maxAge: 20,
+    // });
 
     return res;
   } catch (err) {

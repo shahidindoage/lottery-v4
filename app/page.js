@@ -25,39 +25,74 @@ export default function HomePage() {
     return cleaned.length >= 9 && cleaned.length <= 11;
   };
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    if (!form.name || !form.phone || !form.terms || !form.privacy)
-      return setError(t.errorRequired);
+  // async function handleSubmit(e) {
+  //   e.preventDefault();
+  //   if (!form.name || !form.phone || !form.terms || !form.privacy)
+  //     return setError(t.errorRequired);
 
-    if (!validatePhone(form.phone))
-      return setError(t.errorInvalidPhone);
+  //   if (!validatePhone(form.phone))
+  //     return setError(t.errorInvalidPhone);
 
-    setLoading(true);
-    try {
-      const res = await fetch('/api/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...form,
-          phone: `${form.countryCode}${form.phone.replace(/\D/g, '')}`,
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
+  //   setLoading(true);
+  //   try {
+  //     const res = await fetch('/api/submit', {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({
+  //         ...form,
+  //         phone: `${form.countryCode}${form.phone.replace(/\D/g, '')}`,
+  //       }),
+  //     });
+  //     const data = await res.json();
+  //     if (!res.ok) throw new Error(data.error);
 
-      // ✅ Set success
-      setSubmitted(true);
+  //     // ✅ Set success
+  //     setSubmitted(true);
 
-      // ✅ Extract customer ID from cookie
-      const match = document.cookie.match(/(^| )lottery_user=([^;]+)/);
-      if (match) setCustomerId(match[2]);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+  //     // ✅ Extract customer ID from cookie
+  //     const match = document.cookie.match(/(^| )lottery_user=([^;]+)/);
+  //     if (match) setCustomerId(match[2]);
+  //   } catch (err) {
+  //     setError(err.message);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }
+async function handleSubmit(e) {
+  e.preventDefault();
+  if (!form.name || !form.phone || !form.terms || !form.privacy)
+    return setError(t.errorRequired);
+
+  if (!validatePhone(form.phone))
+    return setError(t.errorInvalidPhone);
+
+  setLoading(true);
+  try {
+    const res = await fetch('/api/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        ...form,
+        phone: `${form.countryCode}${form.phone.replace(/\D/g, '')}`,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      setError(data.error || 'Something went wrong');
+      return;
     }
+
+    // ✅ Success
+    setSubmitted(true);
+    setCustomerId(data.uniqueId); // directly from response
+  } catch (err) {
+    setError(err.message);
+  } finally {
+    setLoading(false);
   }
+}
 
   // ✅ If submitted, show Thank You section
   if (submitted) {
