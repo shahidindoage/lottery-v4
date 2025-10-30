@@ -13,5 +13,13 @@ CREATE TABLE "LotterySubmission" (
     CONSTRAINT "LotterySubmission_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "SiteSetting" (
+    "id" INTEGER NOT NULL DEFAULT 1,
+    "allowRegistration" BOOLEAN NOT NULL DEFAULT true,
+
+    CONSTRAINT "SiteSetting_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "LotterySubmission_uniqueId_key" ON "LotterySubmission"("uniqueId");
