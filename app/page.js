@@ -191,6 +191,7 @@ async function handleSubmit(e) {
           maxWidth: 600,
           width: '100%',
         }}
+        className='registration-card'
       >
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <Image src="/logo.PNG" alt="Logo" width={230} height={230} className="logo" priority />

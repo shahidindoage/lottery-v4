@@ -329,6 +329,9 @@
   align-items: center;
   
 }
+.registration-card{
+  margin-top: -10% !important;
+}
 }
 .logout-wrapper{
   display: flex;
