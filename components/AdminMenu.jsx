@@ -119,6 +119,7 @@ function DropdownItem({ icon, text, onClick, href, as: Component = 'button', dan
     textAlign: 'left',
     cursor: 'pointer',
     transition: 'all 0.2s ease',
+    fontFamily:"playfair-display-v2"
     // marginTop: '-20px'
   };
 
@@ -160,7 +161,8 @@ function DropdownItem1({ icon, text, onClick, href, as: Component = 'button', da
     textAlign: 'left',
     cursor: 'pointer',
     transition: 'all 0.2s ease',
-    marginTop: '-20px'
+    marginTop: '-20px',
+    fontFamily:"playfair-display-v2"
   };
 
   const hoverStyle = {
@@ -199,6 +201,7 @@ const dropdownStyle = {
   boxShadow: '0 8px 18px rgba(0,0,0,0.45)',
   zIndex: 1000,
   animation: 'fadeIn 0.15s ease',
+  fontFamily:"playfair-display-v2"
 };
 
 const dividerStyle = {

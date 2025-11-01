@@ -12,13 +12,13 @@ export default function FlipPage() {
 const t = {
   en: { 
     title: 'Choose the Winners', 
-    youWon: 'Winner Details', 
+    youWon: 'Winner', 
     close: 'Close', 
     resetSuccess: 'Game has been successfully reset!' 
   },
   ru: { 
     title: 'Выберите победителей', 
-    youWon: 'Подробности о победителе', 
+    youWon: 'Победитель', 
     close: 'Закрыть', 
     resetSuccess: 'Игра успешно сброшена!' 
   }
@@ -83,7 +83,7 @@ const t = {
   setAssignedWinners(prev => ({ ...prev, [index]: winner }));
 
   // Show popup
-  setPopupText(`🎉 ${t.youWon}!\nCustomer ID: ${winner.uniqueId}`);
+  setPopupText(`${t.youWon}\n\nCustomer ID: ${winner.uniqueId}`);
   setShowPopup(true);
 };
 
@@ -124,11 +124,11 @@ const t = {
         <button className={lang==='ru'?'active':''} onClick={()=>setLang('ru')}>RU</button>
       </div>
 
-      <h1 className="flip-title">{t.title}</h1>
+      <h1 className="flip-title" style={{fontFamily:"PP-NEUE"}}>{t.title}</h1>
 
      
 
-      <div className="card-container1">
+      <div className="card-container1" style={{fontFamily:"playfair-display-v2" }}>
         {cards.map((card, idx) => (
           <div
             key={idx}
@@ -142,7 +142,7 @@ const t = {
                 <>
                   Winner <br />
                   {/* {card.prize} <br /> */}
-                  <span style={{color:'green'}}>
+                  <span style={{color:'green',fontFamily:"playfair-display-v2" }}>
                     ID - {card.winner.uniqueId}
                   </span>
                 </>
@@ -162,10 +162,11 @@ const t = {
     border: 'none',
     borderRadius: '8px',
     fontWeight: 'bold',
-    fontSize: '1rem',
+    fontSize: '1.3rem',
     cursor: 'pointer',
     transition: 'all 0.3s ease',
     boxShadow: '0 4px 6px rgba(0,0,0,0.2)',
+    fontFamily:"PP-NEUE"
   }}
   onMouseEnter={(e) => e.currentTarget.style.background = '#deb76fff'}
   onMouseLeave={(e) => e.currentTarget.style.background = '#d6af66'}
@@ -176,8 +177,8 @@ const t = {
       {showPopup && (
         <div className="popup1">
           <div className="popup-content1">
-            <pre style={{ whiteSpace: 'pre-line' }}>{popupText}</pre>
-            <button onClick={closePopup}>{t.close}</button>
+            <pre style={{ whiteSpace: 'pre-line' ,fontFamily:"playfair-display-v2"}}>{popupText}</pre>
+            <button onClick={closePopup} style={{  fontFamily:"playfair-display-v2",marginTop:10}}>{t.close}</button>
           </div>
         </div>
       )}

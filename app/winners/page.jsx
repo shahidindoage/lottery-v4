@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 export default function WinnersPage() {
@@ -49,13 +50,16 @@ export default function WinnersPage() {
 
   return (
     <div style={wrapperStyle}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' ,}} className='logo-doremi2'>
+                        <Image src="/logo.PNG" alt="Logo" width={200} height={200} priority />
+                      </div>
       {/* Language Toggle */}
       <div className="lang-toggle1">
         <button className={lang==='en'?'active':''} onClick={()=>setLang('en')}>EN</button>
         <button className={lang==='ru'?'active':''} onClick={()=>setLang('ru')}>RU</button>
       </div>
 
-      <h1 style={titleStyle}>{t.title}</h1>
+      <h1 style={titleStyle} >{t.title}</h1>
 
       {loading ? (
         <p style={loadingStyle}>{t.loading}</p>
@@ -81,7 +85,7 @@ export default function WinnersPage() {
 const wrapperStyle = {
   minHeight: '100vh',
   padding: '40px 20px',
-  background: 'linear-gradient(135deg, #0f2027, #203a43, #2c5364)',
+  background: '#0f0f0f',
   color: '#fff',
   fontFamily: "'Poppins', sans-serif",
   display: 'flex',
@@ -95,9 +99,10 @@ const titleStyle = {
   fontSize: '2.5rem',
   marginBottom: 30,
   textAlign: 'center',
-  background: 'linear-gradient(90deg, #ffd700, #ff8c00)',
+  background: '#d6af66',
   WebkitBackgroundClip: 'text',
   WebkitTextFillColor: 'transparent',
+ fontFamily:"PP-NEUE"
 };
 
 const loadingStyle = { fontSize: '1.2rem', color: '#ffd700', marginBottom: 20 };
@@ -124,6 +129,7 @@ const cardStyle = {
   cursor: 'default',
   backdropFilter: 'blur(10px)',
   boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+  fontFamily:"playfair-display-v2"
 };
 
 const prizeBadgeStyle = {

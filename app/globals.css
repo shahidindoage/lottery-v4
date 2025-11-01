@@ -59,7 +59,9 @@
           margin-bottom: 24px;
           font-family: playfair-display-v2;
         }
-
+.admin-login{
+  margin-top: -3%;
+}
         .form-group input,
         .form-group textarea {
           width: 100%;
@@ -352,6 +354,10 @@
 .logo-doremi{
   margin-top: -23% !important;
  
+}
+
+.admin-login{
+  margin-top: -23% !important;
 }
 .admin-title{
   font-size: 30px !important;

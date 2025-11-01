@@ -71,10 +71,10 @@ export default function AdminLogin() {
             RU
           </button>
         </div>
-<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' ,}} className='logo-doremi'>
+<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' ,}} className='logo-doremi2'>
                           <Image src="/logo.PNG" alt="Logo" width={200} height={200} priority />
                         </div>
-      <div style={{
+      <div className='admin-login' style={{
         background: '#0f0f0f',
         backdropFilter: 'blur(16px)',
         padding: 36,
@@ -86,8 +86,8 @@ export default function AdminLogin() {
         animation: 'fadeIn 0.8s ease'
       }}>
          
-        <h2 style={{ color: '#d6af66', marginBottom: 12 }}>{t.adminPanel}</h2>
-        <p style={{ color: '#ccc', marginBottom: 24, fontSize: 14 }}>{t.adminInfo}</p>
+        <h2 style={{ color: '#d6af66', marginBottom: 12, fontFamily:"PP-NEUE" ,fontSize: 35}}>{t.adminPanel}</h2>
+        <p style={{ color: '#ccc', marginBottom: 24, fontSize: 14, fontFamily:"playfair-display-v2" }}>{t.adminInfo}</p>
 
         {error && <div style={{ color: '#ff4f4f', marginBottom: 16, fontWeight: 'bold' }}>{error}</div>}
 
@@ -107,7 +107,8 @@ export default function AdminLogin() {
                 background: 'rgba(255, 255, 255, 0.1)',
                 border: '1px solid rgba(255, 255, 255, 0.25)',
                 color: '#fff',
-                fontSize: '1rem'
+                fontSize: '1rem',
+                 fontFamily:"playfair-display-v2" 
               }}
             />
             <label style={{
@@ -119,7 +120,8 @@ export default function AdminLogin() {
               color: username ? '#d6af66' : '#ccc',
               padding: '0 6px',
               transition: '0.3s ease',
-              pointerEvents: 'none'
+              pointerEvents: 'none',
+               fontFamily:"playfair-display-v2" 
             }}>{t.username}</label>
           </div>
 
@@ -138,7 +140,8 @@ export default function AdminLogin() {
                 background: 'rgba(255, 255, 255, 0.1)',
                 border: '1px solid rgba(255, 255, 255, 0.25)',
                 color: '#fff',
-                fontSize: '1rem'
+                fontSize: '1rem',
+                 fontFamily:"playfair-display-v2" 
               }}
               className="font2"
             />
@@ -151,7 +154,8 @@ export default function AdminLogin() {
               color: password ? '#d6af66' : '#ccc',
               padding: '0 6px',
               transition: '0.3s ease',
-              pointerEvents: 'none'
+              pointerEvents: 'none',
+               fontFamily:"playfair-display-v2" 
             }}>{t.password}</label>
           </div>
 
@@ -159,20 +163,21 @@ export default function AdminLogin() {
             width: '100%',
             padding: 14,
             fontSize: '1rem',
-            fontWeight: 'bold',
             background: '#d6af66',
             color: '#000',
             border: 'none',
             borderRadius: 10,
             cursor: 'pointer',
-            transition: 'background 0.3s ease'
+            transition: 'background 0.3s ease',
+            fontFamily:"PP-NEUE" ,
+            textTransform:"uppercase"
           }} disabled={loading}>
             {loading ? t.loggingIn : t.login}
           </button>
         </form>
 
         <p style={{ marginTop: 28, fontSize: 12, color: '#bbb' }}>
-          🚫 <span style={{ color: '#d6af66' }}>{t.authOnly}</span>
+          🚫 <span style={{ color: '#d6af66', fontFamily:"playfair-display-v2"  }}>{t.authOnly}</span>
         </p>
       </div>
 

@@ -75,8 +75,8 @@ export default async function AdminDashboard({ searchParams }) {
                 </div>
       <div className="admin">
         
-        <h1 className='admin-title'> Admin Dashboard</h1>
-        <div className="subtitle">
+        <h1 className='admin-title' style={{fontFamily:"PP-NEUE"}}> Admin Dashboard</h1>
+        <div className="subtitle" style={{fontFamily:"playfair-display-v2" }}>
           Manage all lottery submissions and control registration access.
         </div>
 
@@ -85,7 +85,7 @@ export default async function AdminDashboard({ searchParams }) {
           
           {/* 🔽 Country Code Filter */}
           <form method="GET">
-            <label htmlFor="countryCode" style={{ marginRight: 8 }} className='filter-label'>
+            <label htmlFor="countryCode" style={{ marginRight: 8,fontFamily:"playfair-display-v2"  }} className='filter-label' >
               Filter by Country Code:
             </label>
             <select
@@ -98,11 +98,12 @@ export default async function AdminDashboard({ searchParams }) {
                 border: '1px solid #555',
                 background: '#222',
                 color: '#fff',
+                fontFamily:"playfair-display-v2" 
               }}
             >
-              <option value="">All</option>
+              <option value="" style={{fontFamily:"playfair-display-v2" }}>All</option>
               {dynamicCountryCodes.map((code) => (
-                <option key={code} value={code}>
+                <option key={code} value={code} style={{fontFamily:"playfair-display-v2" }}>
                   {code}
                 </option>
               ))}
@@ -116,6 +117,7 @@ export default async function AdminDashboard({ searchParams }) {
                 background: '#d6af66',
                 border: 'none',
                 cursor: 'pointer',
+                fontFamily:"playfair-display-v2" 
               }}
             >
               Filter
@@ -156,7 +158,7 @@ export default async function AdminDashboard({ searchParams }) {
         <table
           border="1"
           cellPadding="8"
-          style={{ width: '100%', borderCollapse: 'collapse', marginTop: 20 }}
+          style={{ width: '100%', borderCollapse: 'collapse', marginTop: 20,fontFamily:"playfair-display-v2" }}
         >
           <thead>
             <tr>
@@ -179,7 +181,7 @@ export default async function AdminDashboard({ searchParams }) {
               </tr>
             )}
             {submissions.map((s) => (
-              <tr key={s.id}>
+              <tr key={s.id} >
                 <td>{s.uniqueId}</td>
                 <td>{s.name}</td>
                 <td>{s.phone || '-'}</td>
