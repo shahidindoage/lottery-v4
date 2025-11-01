@@ -4,6 +4,9 @@ import { redirect } from 'next/navigation';
 import React from 'react';
 import LogoutButton from '@/components/LogoutButton';
 import Link from 'next/link';
+import AdminActions from '@/components/AdminActions';
+import AdminMenu from '@/components/AdminMenu';
+import Image from 'next/image';
 
 // ✅ Static list of known country codes (reference)
 const staticCountryCodes = [
@@ -67,8 +70,12 @@ export default async function AdminDashboard({ searchParams }) {
 
   return (
     <main className="admin-wrapper">
+       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' ,}} className='logo-doremi'>
+                  <Image src="/logo.PNG" alt="Logo" width={200} height={200} priority />
+                </div>
       <div className="admin">
-        <h1>🎯 Admin Dashboard</h1>
+        
+        <h1 className='admin-title'> Admin Dashboard</h1>
         <div className="subtitle">
           Manage all lottery submissions and control registration access.
         </div>
@@ -78,7 +85,7 @@ export default async function AdminDashboard({ searchParams }) {
           
           {/* 🔽 Country Code Filter */}
           <form method="GET">
-            <label htmlFor="countryCode" style={{ marginRight: 8 }}>
+            <label htmlFor="countryCode" style={{ marginRight: 8 }} className='filter-label'>
               Filter by Country Code:
             </label>
             <select
@@ -106,7 +113,7 @@ export default async function AdminDashboard({ searchParams }) {
                 marginLeft: 8,
                 padding: '6px 12px',
                 borderRadius: 6,
-                background: '#f5c400',
+                background: '#d6af66',
                 border: 'none',
                 cursor: 'pointer',
               }}
@@ -137,13 +144,12 @@ export default async function AdminDashboard({ searchParams }) {
             </button>
           </form> */}
 
-          {/* Game + Logout */}
-          <div className="game-logout-wrapper">
-            <Link href="/admin/dashboard/game">
-              <button className="logout-btn">Game Page</button>
-            </Link>
-            <LogoutButton />
-          </div>
+     
+  <AdminMenu />
+
+
+
+          
         </div>
 
         {/* 📋 Table */}
@@ -158,7 +164,7 @@ export default async function AdminDashboard({ searchParams }) {
               <th>Name</th>
               <th>WhatsApp Number</th>
               <th>Terms</th>
-              <th>Privacy</th>
+              {/* <th>Privacy</th> */}
               <th>Winner</th>
               {/* <th>Prize</th> */}
               <th>Submitted At</th>
@@ -178,7 +184,7 @@ export default async function AdminDashboard({ searchParams }) {
                 <td>{s.name}</td>
                 <td>{s.phone || '-'}</td>
                 <td>{s.accepted_terms ? 'Yes' : 'No'}</td>
-                <td>{s.accepted_privacy ? 'Yes' : 'No'}</td>
+                {/* <td>{s.accepted_privacy ? 'Yes' : 'No'}</td> */}
                 <td>{s.winner === 1 ? '✅' : '❌'}</td>
                 {/* <td>{s.prize || '-'}</td> */}
                 <td>{new Date(s.createdAt).toLocaleString()}</td>

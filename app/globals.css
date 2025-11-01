@@ -76,7 +76,7 @@
 
         .form-group input:focus,
         .form-group textarea:focus {
-          /* border-color: #ffd700; */
+          /* border-color: #d6af66; */
           border-bottom: 1px solid #857353;
           outline: none;
           font-family: playfair-display-v2;
@@ -211,7 +211,7 @@
 /* Admin wrapper */
 .admin-wrapper {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  background: #0f0f0f;
   min-height: 100vh;
   padding: 40px 20px;
   color: #fff;
@@ -221,13 +221,14 @@
 .admin {
   max-width: 1200px;
   margin: 0 auto;
+  /* margin-top: -10%; */
 }
 
 /* Header */
 .admin h1 {
   font-size: 2.2rem;
   margin-bottom: 10px;
-  color: #ffd700;
+  color: #d6af66;
 }
 
 /* Logout button */
@@ -261,7 +262,7 @@
 .admin th {
   padding: 12px 14px;
   text-align: center;
-  color: #ffd700;
+  color: #d6af66;
   font-weight: 600;
   background: rgba(255,255,255,0.1);
   font-size: 0.95rem;
@@ -313,6 +314,13 @@
     text-align: center;
     font-size: 1.3rem;
 }
+.admin{
+  margin-top: -2% ;
+}
+.logo-doremi{
+  margin-top: -5% ;
+ 
+}
 /* Mobile responsiveness */
 @media (max-width: 768px) {
   .admin table {
@@ -331,6 +339,25 @@
 }
 .registration-card{
   margin-top: -50% !important;
+}
+.logout-wrapper{
+  flex-direction: row;
+}
+.filter-label{
+  display: none;
+}
+.admin{
+  margin-top: -10% !important;
+}
+.logo-doremi{
+  margin-top: -23% !important;
+ 
+}
+.admin-title{
+  font-size: 30px !important;
+}
+.subtitle{
+  font-size: 15px !important;
 }
 }
 .logout-wrapper{
@@ -431,7 +458,7 @@
         }
 
          .flip-wrapper {
-          background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+          background: #0f0f0f;
           min-height: 100vh;
           display: flex;
           flex-direction: column;
@@ -472,7 +499,7 @@
           font-weight: bold;
         }
         .lang-toggle1 button.active {
-          background: #fcd34d;
+          background: #d6af66;
           color: #000;
         }
 
@@ -509,7 +536,7 @@
         }
 
         .front {
-          background-color: #fcd34d;
+          background-color: #d6af66;
           color: #333;
           font-weight: bold;
           position: relative;
@@ -533,7 +560,7 @@
         .front span {
           position: relative;
           z-index: 1;
-          color: #fcd34d;
+          color: #d6af66;
           font-weight: bold;
         }
 

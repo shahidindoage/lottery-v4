@@ -290,6 +290,7 @@ async function handleSubmit(e) {
   <option value="+504">🇭🇳 +504 &nbsp;Honduras</option>
   <option value="+852">🇭🇰 +852 &nbsp;Hong Kong</option>
   <option value="+36">🇭🇺 +36 &nbsp;&nbsp;&nbsp;Hungary</option>
+   <option value="+91">🇮🇳 +91 &nbsp; &nbsp;India</option>
   <option value="+62">🇮🇩 +62 &nbsp;&nbsp;&nbsp;Indonesia</option>
   <option value="+98">🇮🇷 +98 &nbsp;&nbsp;&nbsp;Iran</option>
   <option value="+964">🇮🇶 +964 &nbsp;Iraq</option>
@@ -302,7 +303,6 @@ async function handleSubmit(e) {
   <option value="+82">🇰🇷 +82 &nbsp;&nbsp;&nbsp;South Korea</option>
   <option value="+965">🇰🇼 +965 &nbsp;Kuwait</option>
   <option value="+60">🇲🇾 +60 &nbsp;&nbsp;&nbsp;Malaysia</option>
-  <option value="+91">🇮🇳 +91 &nbsp; &nbsp;India</option>
   <option value="+52">🇲🇽 +52 &nbsp;&nbsp;&nbsp;Mexico</option>
   <option value="+234">🇳🇬 +234 &nbsp;Nigeria</option>
   <option value="+31">🇳🇱 +31 &nbsp;&nbsp;&nbsp;Netherlands</option>

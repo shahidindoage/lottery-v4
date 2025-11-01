@@ -83,7 +83,7 @@ const t = {
   setAssignedWinners(prev => ({ ...prev, [index]: winner }));
 
   // Show popup
-  setPopupText(`🎉 ${t.youWon}!\nName: ${winner.name}\nCustomer ID: ${winner.uniqueId}`);
+  setPopupText(`🎉 ${t.youWon}!\nCustomer ID: ${winner.uniqueId}`);
   setShowPopup(true);
 };
 
@@ -157,7 +157,7 @@ const t = {
   style={{
     marginBottom: 20,
     padding: '10px 20px',
-    background: '#fcd44e',
+    background: '#d6af66',
     color: '#000',
     border: 'none',
     borderRadius: '8px',
@@ -167,8 +167,8 @@ const t = {
     transition: 'all 0.3s ease',
     boxShadow: '0 4px 6px rgba(0,0,0,0.2)',
   }}
-  onMouseEnter={(e) => e.currentTarget.style.background = '#ffd700'}
-  onMouseLeave={(e) => e.currentTarget.style.background = '#f5c400'}
+  onMouseEnter={(e) => e.currentTarget.style.background = '#deb76fff'}
+  onMouseLeave={(e) => e.currentTarget.style.background = '#d6af66'}
 >
   Reset Game
 </button>

@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export default function AdminLogin() {
   const [username, setUsername] = useState('');
@@ -43,7 +44,7 @@ export default function AdminLogin() {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      background: 'linear-gradient(135deg, #0f2027, #203a43, #2c5364)',
+      background: '#0f0f0f',
       padding: 30,
       color: '#fff',
       flexDirection: 'column',
@@ -54,7 +55,7 @@ export default function AdminLogin() {
           <button
             onClick={() => setLang('en')}
             style={{
-              background: lang === 'en' ? '#f5c400' : 'transparent',
+              background: lang === 'en' ? '#d6af66' : 'transparent',
               color: lang === 'en' ? '#000' : '#fff',
             }}
           >
@@ -63,27 +64,29 @@ export default function AdminLogin() {
           <button
             onClick={() => setLang('ru')}
             style={{
-              background: lang === 'ru' ? '#f5c400' : 'transparent',
+              background: lang === 'ru' ? '#d6af66' : 'transparent',
               color: lang === 'ru' ? '#000' : '#fff',
             }}
           >
             RU
           </button>
         </div>
-
+<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' ,}} className='logo-doremi'>
+                          <Image src="/logo.PNG" alt="Logo" width={200} height={200} priority />
+                        </div>
       <div style={{
-        background: 'rgba(255, 255, 255, 0.08)',
+        background: '#0f0f0f',
         backdropFilter: 'blur(16px)',
         padding: 36,
         borderRadius: 16,
         maxWidth: 510,
         width: '100%',
         boxShadow: '0 20px 40px rgba(0, 0, 0, 0.35)',
-        border: '1px solid rgba(255, 255, 255, 0.15)',
         textAlign: 'center',
         animation: 'fadeIn 0.8s ease'
       }}>
-        <h2 style={{ color: '#ffd700', marginBottom: 12 }}>🎯 {t.adminPanel}</h2>
+         
+        <h2 style={{ color: '#d6af66', marginBottom: 12 }}>{t.adminPanel}</h2>
         <p style={{ color: '#ccc', marginBottom: 24, fontSize: 14 }}>{t.adminInfo}</p>
 
         {error && <div style={{ color: '#ff4f4f', marginBottom: 16, fontWeight: 'bold' }}>{error}</div>}
@@ -113,7 +116,7 @@ export default function AdminLogin() {
               top: username ? -10 : '50%',
               transform: username ? 'translateY(0)' : 'translateY(-50%)',
               fontSize: username ? '0.75rem' : '0.9rem',
-              color: username ? '#ffd700' : '#ccc',
+              color: username ? '#d6af66' : '#ccc',
               padding: '0 6px',
               transition: '0.3s ease',
               pointerEvents: 'none'
@@ -137,6 +140,7 @@ export default function AdminLogin() {
                 color: '#fff',
                 fontSize: '1rem'
               }}
+              className="font2"
             />
             <label style={{
               position: 'absolute',
@@ -144,7 +148,7 @@ export default function AdminLogin() {
               top: password ? -10 : '50%',
               transform: password ? 'translateY(0)' : 'translateY(-50%)',
               fontSize: password ? '0.75rem' : '0.9rem',
-              color: password ? '#ffd700' : '#ccc',
+              color: password ? '#d6af66' : '#ccc',
               padding: '0 6px',
               transition: '0.3s ease',
               pointerEvents: 'none'
@@ -156,7 +160,7 @@ export default function AdminLogin() {
             padding: 14,
             fontSize: '1rem',
             fontWeight: 'bold',
-            background: 'linear-gradient(135deg, #ffd700, #ffb700)',
+            background: '#d6af66',
             color: '#000',
             border: 'none',
             borderRadius: 10,
@@ -168,7 +172,7 @@ export default function AdminLogin() {
         </form>
 
         <p style={{ marginTop: 28, fontSize: 12, color: '#bbb' }}>
-          🚫 <span style={{ color: '#ffd700' }}>{t.authOnly}</span>
+          🚫 <span style={{ color: '#d6af66' }}>{t.authOnly}</span>
         </p>
       </div>
 
