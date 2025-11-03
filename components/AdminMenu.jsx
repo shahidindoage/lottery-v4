@@ -5,9 +5,14 @@ import Link from 'next/link';
 
 export default function AdminMenu() {
   const [open, setOpen] = useState(false);
+  const [showResetModal, setShowResetModal] = useState(false);
   const menuRef = useRef(null);
 
-  // Close menu when clicking outside
+  const [currentPass, setCurrentPass] = useState('');
+  const [newPass, setNewPass] = useState('');
+  const [confirmPass, setConfirmPass] = useState('');
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (menuRef.current && !menuRef.current.contains(e.target)) {
@@ -31,7 +36,7 @@ export default function AdminMenu() {
       a.click();
       a.remove();
       setOpen(false);
-    } catch (err) {
+    } catch {
       alert('Error exporting data.');
     }
   };
@@ -63,41 +68,89 @@ export default function AdminMenu() {
     }
   };
 
+  // Reset Password
+  const handleResetPassword = async () => {
+    if (!currentPass || !newPass || !confirmPass) return alert('Fill all fields.');
+    if (newPass !== confirmPass) return alert('New passwords do not match.');
+    setLoading(true);
+
+    try {
+      const res = await fetch('/api/admin/reset-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ currentPass, newPass }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        alert('✅ Password reset successfully!');
+        setShowResetModal(false);
+        setCurrentPass('');
+        setNewPass('');
+        setConfirmPass('');
+      } else {
+        alert(`❌ ${data.error}`);
+      }
+    } catch {
+      alert('Server error.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div ref={menuRef} style={{ position: 'relative', display: 'inline-block' }}>
-      {/* ⋮ Toggle Button */}
       <button
         onClick={() => setOpen((p) => !p)}
         aria-label="Admin menu"
-        style={{
-          background: 'none',
-          border: 'none',
-          fontSize: '24px',
-          cursor: 'pointer',
-          color: '#d6af66',
-          padding: '4px 8px',
-          transition: 'color 0.2s',
-        }}
-        onMouseEnter={(e) => (e.currentTarget.style.color = '#fff')}
-        onMouseLeave={(e) => (e.currentTarget.style.color = '#d6af66')}
+        style={{ background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer', color: '#d6af66' }}
       >
         ⋮
       </button>
 
-      {/* Dropdown Menu */}
       {open && (
         <div style={dropdownStyle}>
-          <DropdownItem
-            icon="🎮"
-            text="Game Page"
-            as={Link}
-            href="/admin/dashboard/game"
-            onClick={() => setOpen(false)}
-          />
+          <DropdownItem icon="⭐" text="Game Page" as={Link} href="/admin/dashboard/game" onClick={() => setOpen(false)} />
           <DropdownItem icon="⬇️" text="Export CSV" onClick={handleExport} />
-          <DropdownItem1 icon="🗑️" text="Clear Entries" danger onClick={handleClear}/>
-          <div style={dividerStyle}></div>
-          <DropdownItem icon="🚪" text="Logout" onClick={handleLogout} />
+          < DropdownItem1 icon="🗑️" text="Clear Entries" danger onClick={handleClear} />
+             <div style={dividerStyle}></div>
+              <DropdownItem icon="🔑" text="Reset Password" onClick={() => setShowResetModal(true)} />
+          < DropdownItem1 icon="🚪" text="Logout" onClick={handleLogout} />
+        </div>
+      )}
+
+      {/* Reset Password Modal */}
+      {showResetModal && (
+        <div style={modalOverlay}>
+          <div style={modalStyle}>
+            <h3>Reset Password</h3>
+            <input
+              type="password"
+              placeholder="Current Password"
+              value={currentPass}
+              onChange={(e) => setCurrentPass(e.target.value)}
+              style={inputStyle}
+            />
+            <input
+              type="password"
+              placeholder="New Password"
+              value={newPass}
+              onChange={(e) => setNewPass(e.target.value)}
+              style={inputStyle}
+            />
+            <input
+              type="password"
+              placeholder="Confirm New Password"
+              value={confirmPass}
+              onChange={(e) => setConfirmPass(e.target.value)}
+              style={inputStyle}
+            />
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10, marginTop: 10 }}>
+              <button onClick={() => setShowResetModal(false)} style={buttonStyleSecondary}>Cancel</button>
+              <button onClick={handleResetPassword} style={buttonStylePrimary} disabled={loading}>
+                {loading ? 'Saving...' : 'Save'}
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
@@ -119,25 +172,18 @@ function DropdownItem({ icon, text, onClick, href, as: Component = 'button', dan
     textAlign: 'left',
     cursor: 'pointer',
     transition: 'all 0.2s ease',
-    fontFamily:"playfair-display-v2"
-    // marginTop: '-20px'
+    fontFamily: 'playfair-display-v2',
+    fontWeight: '100',
   };
 
-  const hoverStyle = {
-    background: 'rgba(255, 255, 255, 0.08)',
-    transform: 'translateX(3px)',
-  };
-
-  const [hover, setHover] = useState(false);
+  const hoverStyle = { background: 'rgba(255,255,255,0.08)', transform: 'translateX(3px)' };
+  const [hover, setHover] = React.useState(false);
 
   return (
     <Component
       href={href}
       onClick={onClick}
-      style={{
-        ...baseStyle,
-        ...(hover ? hoverStyle : {}),
-      }}
+      style={{ ...baseStyle, ...(hover ? hoverStyle : {}) }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
@@ -146,6 +192,7 @@ function DropdownItem({ icon, text, onClick, href, as: Component = 'button', dan
     </Component>
   );
 }
+
 function DropdownItem1({ icon, text, onClick, href, as: Component = 'button', danger = false }) {
   const baseStyle = {
     display: 'flex',
@@ -161,25 +208,19 @@ function DropdownItem1({ icon, text, onClick, href, as: Component = 'button', da
     textAlign: 'left',
     cursor: 'pointer',
     transition: 'all 0.2s ease',
-    marginTop: '-20px',
-    fontFamily:"playfair-display-v2"
+    fontFamily: 'playfair-display-v2',
+    fontWeight: '100',
+    marginTop:"-20px"
   };
 
-  const hoverStyle = {
-    background: 'rgba(255, 255, 255, 0.08)',
-    transform: 'translateX(3px)',
-  };
-
-  const [hover, setHover] = useState(false);
+  const hoverStyle = { background: 'rgba(255,255,255,0.08)', transform: 'translateX(3px)' };
+  const [hover, setHover] = React.useState(false);
 
   return (
     <Component
       href={href}
       onClick={onClick}
-      style={{
-        ...baseStyle,
-        ...(hover ? hoverStyle : {}),
-      }}
+      style={{ ...baseStyle, ...(hover ? hoverStyle : {}) }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
@@ -200,12 +241,27 @@ const dropdownStyle = {
   overflow: 'hidden',
   boxShadow: '0 8px 18px rgba(0,0,0,0.45)',
   zIndex: 1000,
-  animation: 'fadeIn 0.15s ease',
-  fontFamily:"playfair-display-v2"
+  fontFamily: 'playfair-display-v2',
 };
 
-const dividerStyle = {
-  height: 1,
-  background: '#333',
-  margin: '4px 0',
+const dividerStyle = { height: 1, background: '#333', margin: '4px 0' };
+
+const modalOverlay = {
+  position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+  background: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 2000
+};
+
+const modalStyle = {
+  background: '#222', padding: 20, borderRadius: 10, width: 320, display: 'flex', flexDirection: 'column', gap: 8
+};
+
+const inputStyle = {
+  padding: '8px 10px', borderRadius: 6, border: '1px solid #555', background: '#111', color: '#fff'
+};
+
+const buttonStylePrimary = {
+  padding: '6px 12px', borderRadius: 6, border: 'none', background: '#d6af66', color: '#000', cursor: 'pointer'
+};
+const buttonStyleSecondary = {
+  padding: '6px 12px', borderRadius: 6, border: '1px solid #555', background: '#222', color: '#fff', cursor: 'pointer'
 };

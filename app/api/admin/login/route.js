@@ -1,24 +1,29 @@
+import { prisma } from '@/lib/prisma';
 import { NextResponse } from 'next/server';
 
-const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin';
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '12345';
-
 export async function POST(req) {
-  const { username, password } = await req.json();
+  const body = await req.json();
+  const { username, password } = body;
 
-  if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-    const res = NextResponse.json({ success: true });
-
-    // Set cookie for admin session
-    res.cookies.set('admin_auth', 'true', {
-      path: '/',
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 60 * 60 * 2, // 2 hours
-    });
-
-    return res;
+  if (!username || !password) {
+    return NextResponse.json({ error: 'Missing credentials' }, { status: 400 });
   }
 
-  return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
+  // Plain text comparison
+  const admin = await prisma.admin.findUnique({ where: { username } });
+  if (!admin || admin.password !== password) {
+    return NextResponse.json({ error: 'Invalid username or password' }, { status: 401 });
+  }
+
+  const res = NextResponse.json({ success: true });
+
+  // Set cookie for authentication
+  res.cookies.set('admin_auth', admin.username, {
+    path: '/',
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 60 * 60 * 2, // 2 hours
+  });
+
+  return res;
 }

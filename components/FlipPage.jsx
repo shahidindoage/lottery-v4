@@ -1,184 +1,243 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export default function FlipPage() {
-  const [cards, setCards] = useState([]);
-  const [assignedWinners, setAssignedWinners] = useState({});
+  const router = useRouter();
+  const [card, setCard] = useState(null);
+  const [assignedWinners, setAssignedWinners] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
   const [popupText, setPopupText] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const [lang, setLang] = useState('en');
+  const [winnerLimit, setWinnerLimit] = useState(1);
+  const [started, setStarted] = useState(false);
 
-const t = {
-  en: { 
-    title: 'Choose the Winners', 
-    youWon: 'Winner', 
-    close: 'Close', 
-    resetSuccess: 'Game has been successfully reset!' 
-  },
-  ru: { 
-    title: 'Выберите победителей', 
-    youWon: 'Победитель', 
-    close: 'Закрыть', 
-    resetSuccess: 'Игра успешно сброшена!' 
-  }
-}[lang];
+  const t = {
+    en: { 
+      title: 'Choose the Winner', 
+      youWon: 'Winner', 
+      close: 'Close', 
+      chooseAgain: 'Choose Again',
+      resetSuccess: 'Game has been successfully reset!',
+      back: 'Back',
+      limitPlaceholder: 'Number of Winners'
+    },
+    ru: { 
+      title: 'Выберите победителя', 
+      youWon: 'Победитель', 
+      close: 'Закрыть', 
+      chooseAgain: 'Выбрать снова',
+      resetSuccess: 'Игра успешно сброшена!',
+      back: 'Назад',
+      limitPlaceholder: 'Количество победителей'
+    }
+  }[lang];
 
+  const prize = 'Grand Prize';
 
-  const prizes = [
-    'AC', 'TV', 'Mobile', 'Laptop', 'Headphones',
-    'AC', 'TV', 'Mobile', 'Laptop', 'Headphones'
-  ];
-
-  // Initialize cards and fetch users
   useEffect(() => {
-    const initCards = prizes.map((prize, idx) => ({
-      index: idx,
-      prize,
-      flipped: false,
-      winner: null,
-      fixed: false
-    }));
-    setCards(initCards);
+    setCard({ flipped: false, winner: null, fixed: false });
 
-    // Fetch all users
     fetch('/api/users')
       .then(res => res.json())
       .then(data => setAllUsers(data.users || []));
   }, [lang]);
 
- const handleFlip = async (index) => {
-  const card = cards[index];
-  if (card.flipped || card.fixed || allUsers.length === 0) return;
+  // Flip the card to choose a winner
+  const handleFlip = async () => {
+    if (!card || card.flipped || card.fixed || !started) return;
 
-  // Filter users who are not already winners
-  const assignedIds = Object.values(assignedWinners).map(u => u.uniqueId);
-  const availableUsers = allUsers.filter(u => !assignedIds.includes(u.uniqueId));
-  if (availableUsers.length === 0) return;
+    // Filter users who are not already winners
+    const availableUsers = allUsers.filter(u => 
+      !assignedWinners.some(w => w.uniqueId === u.uniqueId)
+    );
 
-  // Pick random winner
-  const winner = availableUsers[Math.floor(Math.random() * availableUsers.length)];
+    if (availableUsers.length === 0) return;
 
-  // Save winner in DB
-  await fetch('/api/assign-winner', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ uniqueId: winner.uniqueId, prize: card.prize })
-  });
+    const winner = availableUsers[Math.floor(Math.random() * availableUsers.length)];
 
-  // Update card state
-  const newCards = [...cards];
-  newCards[index] = { ...card, flipped: true, winner, fixed: true };
+    await fetch('/api/assign-winner', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ uniqueId: winner.uniqueId, prize })
+    });
 
-  // Shuffle remaining unflipped cards
-  const unflipped = newCards.filter(c => !c.flipped);
-  for (let i = unflipped.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [unflipped[i], unflipped[j]] = [unflipped[j], unflipped[i]];
-  }
+    // Flip card animation
+    setCard({ ...card, flipped: true, winner, fixed: true });
+    setAssignedWinners(prev => [...prev, winner]);
 
-  // Merge shuffled unflipped cards back into the main array
-  const merged = newCards.map(c => c.flipped ? c : unflipped.shift());
-  setCards(merged);
-  setAssignedWinners(prev => ({ ...prev, [index]: winner }));
+    setTimeout(() => {
+      setPopupText(`${t.youWon}\n\nCustomer ID: ${winner.uniqueId}`);
+      setShowPopup(true);
+    }, 500);
+  };
 
-  // Show popup
-  setPopupText(`${t.youWon}\n\nCustomer ID: ${winner.uniqueId}`);
-  setShowPopup(true);
-};
-
-
+  // Reset the game
   const handleReset = async () => {
-    // Call reset route
     const res = await fetch('/api/reset-winners', { method: 'POST' });
     if (res.ok) {
-      // Reset cards in UI
-      const resetCards = prizes.map((prize, idx) => ({
-        index: idx,
-        prize,
-        flipped: false,
-        winner: null,
-        fixed: false
-      }));
-      setCards(resetCards);
-      setAssignedWinners({});
-      // Show success popup
+      setCard({ flipped: false, winner: null, fixed: false });
+      setAssignedWinners([]);
+      setStarted(false);
       setPopupText(t.resetSuccess);
       setShowPopup(true);
     }
   };
 
+  // Choose again without repeating
+  const handleChooseAgain = () => {
+    if (assignedWinners.length >= winnerLimit) return; // stop if reached limit
+    setCard({ flipped: false, winner: null, fixed: false });
+    setShowPopup(false);
+  };
+
   const closePopup = () => setShowPopup(false);
 
-  const getCardStyle = (card) => ({
-    backgroundColor: card.fixed ? '#ccc' : '#fff',
-    cursor: card.fixed ? 'default' : 'pointer',
-    color: card.fixed ? '#666' : '#000',
-  });
+  // Start game with limit
+  const startGame = () => {
+    if (winnerLimit <= 0 || winnerLimit > allUsers.length) {
+      alert(`Please enter a valid number between 1 and ${allUsers.length}`);
+      return;
+    }
+    setStarted(true);
+    handleFlip();
+  };
 
   return (
-    <div className="flip-wrapper">
+    <div className='flip-wrapper'>
+      {/* Back Button */}
+      <button 
+        onClick={() => router.back()} 
+        style={{ position: 'absolute', top: 20, left: 20, zIndex: 100, padding: '8px 12px', borderRadius: 6, border: 'none', background: '#d6af66', cursor: 'pointer' }}
+      >
+        {t.back}
+      </button>
+
       {/* Language Toggle */}
       <div className="lang-toggle1">
         <button className={lang==='en'?'active':''} onClick={()=>setLang('en')}>EN</button>
         <button className={lang==='ru'?'active':''} onClick={()=>setLang('ru')}>RU</button>
       </div>
+<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' ,}} className='logo-doremi4'>
+                  <Image src="/logo.PNG" alt="Logo" width={200} height={200} priority />
+                </div>
+     <h1 className="flip-title" style={{ fontFamily: "PP-NEUE", textTransform: "uppercase", fontWeight: "100" }}>
+  { !started ? (lang === 'en' ? 'Select the number of winners' : 'Выберите количество победителей') : t.title }
+</h1>
 
-      <h1 className="flip-title" style={{fontFamily:"PP-NEUE"}}>{t.title}</h1>
+      {/* Set Winner Limit */}
+      {!started && (
+        <div style={{ marginBottom: 20 }}>
+          <input 
+            type="number" 
+            min={1} 
+            max={allUsers.length} 
+            value={winnerLimit} 
+            onChange={e => setWinnerLimit(parseInt(e.target.value))}
+            placeholder={t.limitPlaceholder}
+            style={{ padding: '12px 12px', fontSize: '1rem', borderRadius: 8, border: '1px solid #ccc', marginRight: 10 }}
+          />
 
-     
-
-      <div className="card-container1" style={{fontFamily:"playfair-display-v2" }}>
-        {cards.map((card, idx) => (
-          <div
-            key={idx}
-            className={`card1 ${card.flipped?'flipped':''}`}
-            style={getCardStyle(card)}
-            onClick={() => handleFlip(idx)}
+           <button
+           onClick={startGame}
+            style={{
+              padding: '10px 20px',
+              background: '#d6af66',
+              color: '#000',
+              border: 'none',
+              borderRadius: '8px',
+              textTransform:"uppercase",
+              fontSize: '1.3rem',
+              cursor: 'pointer',
+              boxShadow: '0 4px 6px rgba(0,0,0,0.2)',
+              fontFamily:"PP-NEUE",
+              fontWeight:"100"
+            }}
           >
-            <div className="front"><span>?</span></div>
-            <div className="back">
-              {card.flipped && card.winner ? (
-                <>
-                  Winner <br />
-                  {/* {card.prize} <br /> */}
-                  <span style={{color:'green',fontFamily:"playfair-display-v2" }}>
-                    ID - {card.winner.uniqueId}
-                  </span>
-                </>
-              ) : ''}
+           Start
+          </button>
+          {/* <button onClick={startGame} style={{ padding: '8px 16px', borderRadius: 6, border: 'none', background: '#d6af66', cursor: 'pointer' }}>Start</button> */}
+        </div>
+      )}
+
+      {/* Flip Card */}
+      {started && (
+        <div
+          className={`card1 ${card?.flipped ? 'flipped' : ''}`}
+          onClick={handleFlip}
+          style={{
+            width: 300,
+            height: 400,
+            perspective: 1000,
+            margin: '0 auto',
+          }}
+        >
+          <div className="flip-card-inner">
+            <div className="front" style={{fontWeight:"100"}}><span>?</span></div>
+            <div className="back" style={{fontWeight:"100"}}>
+              {card?.winner ? <>
+                    Winner <br />
+                    <span style={{color:'green',fontFamily:"playfair-display-v2",fontWeight:"100"}}>
+                      ID - {card.winner.uniqueId}
+                    </span>
+                  </> : ''}
             </div>
           </div>
-        ))}
-      </div>
-{/* Reset Game Button */}
-<button
-  onClick={handleReset}
-  style={{
-    marginBottom: 20,
-    padding: '10px 20px',
-    background: '#d6af66',
-    color: '#000',
-    border: 'none',
-    borderRadius: '8px',
-    fontWeight: 'bold',
-    fontSize: '1.3rem',
-    cursor: 'pointer',
-    transition: 'all 0.3s ease',
-    boxShadow: '0 4px 6px rgba(0,0,0,0.2)',
-    fontFamily:"PP-NEUE"
-  }}
-  onMouseEnter={(e) => e.currentTarget.style.background = '#deb76fff'}
-  onMouseLeave={(e) => e.currentTarget.style.background = '#d6af66'}
->
-  Reset Game
-</button>
+        </div>
+      )}
 
+      {/* Choose Again & Reset */}
+      {started && (
+        <div style={{ display: 'flex', gap: 10, justifyContent: 'center', marginTop: 20 }}>
+          {assignedWinners.length < winnerLimit && (
+            <button
+              onClick={handleChooseAgain}
+              style={{
+                padding: '10px 20px',
+                background: '#d6af66',
+                color: '#000',
+                border: 'none',
+                borderRadius: '8px',
+                textTransform:"uppercase",
+                fontSize: '1.3rem',
+                cursor: 'pointer',
+                boxShadow: '0 4px 6px rgba(0,0,0,0.2)',
+                fontFamily:"PP-NEUE",
+                fontWeight:"100"
+              }}
+            >
+              {t.chooseAgain}
+            </button>
+          )}
+          <button
+            onClick={handleReset}
+            style={{
+              padding: '10px 20px',
+              background: '#d6af66',
+              color: '#000',
+              border: 'none',
+              borderRadius: '8px',
+              textTransform:"uppercase",
+              fontSize: '1.3rem',
+              cursor: 'pointer',
+              boxShadow: '0 4px 6px rgba(0,0,0,0.2)',
+              fontFamily:"PP-NEUE",
+              fontWeight:"100"
+            }}
+          >
+            Reset Game
+          </button>
+        </div>
+      )}
+
+      {/* Popup */}
       {showPopup && (
         <div className="popup1">
           <div className="popup-content1">
-            <pre style={{ whiteSpace: 'pre-line' ,fontFamily:"playfair-display-v2"}}>{popupText}</pre>
-            <button onClick={closePopup} style={{  fontFamily:"playfair-display-v2",marginTop:10}}>{t.close}</button>
+            <pre style={{ whiteSpace: 'pre-line', fontFamily:"playfair-display-v2", fontWeight:"100" }}>{popupText}</pre>
+            <button onClick={closePopup} style={{ fontFamily:"playfair-display-v2", marginTop:10, fontWeight:"100" }}>{t.close}</button>
           </div>
         </div>
       )}

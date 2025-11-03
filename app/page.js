@@ -8,6 +8,9 @@ export default function HomePage() {
     name: '',
     phone: '',
     countryCode: '+971',
+    email:"",
+    tableNumber:"",
+    seatNumber:"",
     terms: false,
     privacy: true,
   });
@@ -60,8 +63,20 @@ export default function HomePage() {
   // }
 async function handleSubmit(e) {
   e.preventDefault();
-  if (!form.name || !form.phone || !form.terms || !form.privacy)
-    return setError(t.errorRequired);
+  if (!form.name )
+    return setError("name");
+  if (!form.phone)
+    return setError("phone");
+  if (!form.email)
+    return setError("emial");
+  if( !form.tableNumber )
+    return setError("table");
+ 
+  if (!form.terms)
+    return setError("terms");
+
+   if (!form.seatNumber )
+    return setError("seat");
 
   if (!validatePhone(form.phone))
     return setError(t.errorInvalidPhone);
@@ -74,6 +89,7 @@ async function handleSubmit(e) {
       body: JSON.stringify({
         ...form,
         phone: `${form.countryCode}${form.phone.replace(/\D/g, '')}`,
+      
       }),
     });
 
@@ -193,7 +209,7 @@ async function handleSubmit(e) {
         }}
         className='registration-card'
       >
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} className='main-logo'>
           <Image src="/logo.PNG" alt="Logo" width={230} height={230} className="logo" priority />
         </div>
 
@@ -338,6 +354,41 @@ async function handleSubmit(e) {
               </div>
             </div>
 
+            <div className="form-group font2">
+              <input
+                type="email"
+                placeholder=" "
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                required
+                className="font2"
+              />
+              <label className="font2 name-label">{t.email}</label>
+            </div>
+             <div className="form-group font2">
+              <input
+                type="text"
+                placeholder=" "
+                value={form.tableNumber}
+                onChange={(e) => setForm({ ...form, tableNumber: e.target.value })}
+                required
+                className="font2"
+              />
+              <label className="font2 name-label">{t.tableno}</label>
+            </div>
+            <div className="form-group font2">
+              <input
+                type="text"
+                placeholder=" "
+                value={form.seatNumber}
+                onChange={(e) => setForm({ ...form, seatNumber: e.target.value })}
+                required
+                className="font2"
+              />
+              <label className="font2 name-label">{t.seatno}</label>
+            </div>
+           
+
             {/* Checkboxes */}
             <div className="checkboxes">
               <label className="font2">
@@ -381,6 +432,9 @@ const translations = {
     title: 'Join the Lottery Draw!',
     fullName: 'Full Name',
     phone: 'WhatsApp Number',
+    email:'Email',
+    tableno:'Table Number',
+    seatno:'Seat Number',
     errorRequired: 'Please fill all required fields',
     errorInvalidPhone: 'Please enter a valid WhatsApp number',
     enterDraw: 'Enter the Draw',
@@ -394,6 +448,9 @@ const translations = {
     title: 'Присоединяйтесь к розыгрышу призов!',
     fullName: 'ФИО',
     phone: 'Номер WhatsApp',
+    email:'Электронная почта',
+    tableno:'Номер стола',
+    seatno:'Номер места',
     errorRequired: 'Пожалуйста, заполните обязательные поля',
     errorInvalidPhone: 'Введите действительный номер WhatsApp',
     enterDraw: 'Принять участие',

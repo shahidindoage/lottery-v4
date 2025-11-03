@@ -11,7 +11,10 @@ model LotterySubmission {
   id               Int      @id @default(autoincrement())
   uniqueId         String   @unique
   name             String
+  email            String?      // new field
   phone            String?
+  table_number     String?      // new field
+  seat_number      String?      // new field
   accepted_terms   Boolean
   accepted_privacy Boolean
   winner           Int      @default(0)
@@ -19,7 +22,15 @@ model LotterySubmission {
   createdAt        DateTime @default(now())
 }
 
+
 model SiteSetting {
   id        Int      @id @default(1)
   allowRegistration Boolean @default(true)
+}
+model Admin {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
